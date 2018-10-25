@@ -11,7 +11,8 @@ var template = (
 const mysite = {
     name: "MyFirstRectApp STUFFSTUFSTUUFF",
     subtitle: "SubtitleToMyApp",
-    options: ["jeden","dwa"]
+    lastoption: '',
+    options: []
 }
 
 const getName = (x) => x.split(' ')[0];
@@ -27,6 +28,27 @@ const minusOne = (x) => {
     render();
 }
 
+const submitForm = (e) => {
+    e.preventDefault();
+
+    const newOption = e.target.elements.option.value;
+
+    if(newOption){
+        mysite.lastoption = newOption;
+        mysite.options.push(newOption);
+        e.target.elements.option.value = ''
+        render();
+    }
+}
+
+const resetOptions = () => {
+    mysite.options=[];
+    mysite.lastoption = undefined;
+    render();
+}
+
+const mainContainer = document.getElementById('wrapper');
+
 const render = () => {
 
     const template2 = (
@@ -38,10 +60,16 @@ const render = () => {
             <h1 className='counter' >Counter : {counter}</h1>
             <button onClick = {addOne} >+1</button>    
             <button onClick = {minusOne}>-1</button>    
+
+            {mysite.lastoption && <h1>{mysite.lastoption}</h1>}
+            <h3>{mysite.options.length}</h3>
+            <form onSubmit = {submitForm}>
+                <input type = "text" name = "option"/>
+            </form>
+            <button onClick={resetOptions}>Reset Your Options</button>
         </div>
     );
 
-    const mainContainer = document.getElementById('wrapper');
     ReactDOM.render(template2, mainContainer);
 
 }

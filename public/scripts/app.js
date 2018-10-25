@@ -23,7 +23,8 @@ var template = React.createElement(
 var mysite = {
     name: "MyFirstRectApp STUFFSTUFSTUUFF",
     subtitle: "SubtitleToMyApp",
-    options: ["jeden", "dwa"]
+    lastoption: '',
+    options: []
 };
 
 var getName = function getName(x) {
@@ -40,6 +41,27 @@ var minusOne = function minusOne(x) {
     counter--;
     render();
 };
+
+var submitForm = function submitForm(e) {
+    e.preventDefault();
+
+    var newOption = e.target.elements.option.value;
+
+    if (newOption) {
+        mysite.lastoption = newOption;
+        mysite.options.push(newOption);
+        e.target.elements.option.value = '';
+        render();
+    }
+};
+
+var resetOptions = function resetOptions() {
+    mysite.options = [];
+    mysite.lastoption = undefined;
+    render();
+};
+
+var mainContainer = document.getElementById('wrapper');
 
 var render = function render() {
 
@@ -78,10 +100,29 @@ var render = function render() {
             "button",
             { onClick: minusOne },
             "-1"
+        ),
+        mysite.lastoption && React.createElement(
+            "h1",
+            null,
+            mysite.lastoption
+        ),
+        React.createElement(
+            "h3",
+            null,
+            mysite.options.length
+        ),
+        React.createElement(
+            "form",
+            { onSubmit: submitForm },
+            React.createElement("input", { type: "text", name: "option" })
+        ),
+        React.createElement(
+            "button",
+            { onClick: resetOptions },
+            "Reset Your Options"
         )
     );
 
-    var mainContainer = document.getElementById('wrapper');
     ReactDOM.render(template2, mainContainer);
 };
 render();
