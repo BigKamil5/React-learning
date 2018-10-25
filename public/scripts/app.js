@@ -117,6 +117,17 @@ var render = function render() {
             React.createElement("input", { type: "text", name: "option" })
         ),
         React.createElement(
+            "ul",
+            null,
+            mysite.options.map(function (option, index) {
+                return React.createElement(
+                    "li",
+                    { key: index },
+                    option
+                );
+            })
+        ),
+        React.createElement(
             "button",
             { onClick: resetOptions },
             "Reset Your Options"

@@ -66,6 +66,11 @@ const render = () => {
             <form onSubmit = {submitForm}>
                 <input type = "text" name = "option"/>
             </form>
+            <ul>
+                {
+                    mysite.options.map((option,index) => <li key={index}>{option}</li>)
+                }
+            </ul>
             <button onClick={resetOptions}>Reset Your Options</button>
         </div>
     );
