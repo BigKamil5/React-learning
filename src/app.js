@@ -47,6 +47,10 @@ const resetOptions = () => {
     render();
 }
 
+const getMyAns = () => {
+    alert(mysite.options[Math.floor(Math.random()*mysite.options.length)])
+}
+
 const mainContainer = document.getElementById('wrapper');
 
 const render = () => {
@@ -61,7 +65,7 @@ const render = () => {
             <button onClick = {addOne} >+1</button>    
             <button onClick = {minusOne}>-1</button>    
 
-            {mysite.lastoption && <h1>{mysite.lastoption}</h1>}
+            <button disabled = {mysite.options.length === 0} onClick={getMyAns}>Check my destiny!</button>
             <h3>{mysite.options.length}</h3>
             <form onSubmit = {submitForm}>
                 <input type = "text" name = "option"/>
