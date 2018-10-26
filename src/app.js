@@ -1,94 +1,97 @@
-var template = (
-        <div>
-            <h1>JAJ! Mój das React</h1>
-            <p>Imie</p>
-            <p>Naziwsko</p>
-        </div>
-    );
+class App extends React.Component{
+    render(){
 
+        const title = "My Beautiful App",
+              subtitle = "Led destiny lead You!",
+              options = ['opt1', 'opt2', 'opt3'];
 
-
-const mysite = {
-    name: "MyFirstRectApp STUFFSTUFSTUUFF",
-    subtitle: "SubtitleToMyApp",
-    lastoption: '',
-    options: []
-}
-
-const getName = (x) => x.split(' ')[0];
-
-let counter = 0;
-
-const addOne = (x) => {
-    counter ++;
-    render();
-}
-const minusOne = (x) => {
-    counter --;
-    render();
-}
-
-const submitForm = (e) => {
-    e.preventDefault();
-
-    const newOption = e.target.elements.option.value;
-
-    if(newOption){
-        mysite.lastoption = newOption;
-        mysite.options.push(newOption);
-        e.target.elements.option.value = ''
-        render();
+        return(
+            <div>
+                <Header title={title} subtitle={subtitle} />
+                <Action />
+                <Options options={options}/>
+                <AddOption />
+            </div>
+        )
     }
 }
 
-const resetOptions = () => {
-    mysite.options=[];
-    mysite.lastoption = undefined;
-    render();
+class Header extends React.Component{
+    render(){
+        return(
+            <div>
+                <h1> {this.props.title} </h1>
+                <h3> {this.props.subtitle} </h3>
+            </div>
+        )
+    }
 }
 
-const getMyAns = () => {
-    alert(mysite.options[Math.floor(Math.random()*mysite.options.length)])
+class Action extends React.Component{
+    btnHandler(){
+        alert('KRAKRA');
+    }
+    
+    render(){
+        return(
+            <button onClick={this.btnHandler} >Tell me Lord what should i do</button>
+            )
+    }
 }
 
-const mainContainer = document.getElementById('wrapper');
+class Options extends React.Component{
 
-const render = () => {
+    removeAllOptions(){
+        alert("i am removing bro");
+    }
 
-    const template2 = (
-        <div>
-            <h1>{getName(mysite.name)}</h1>
-            {mysite.subtitle && <p> {mysite.subtitle} </p>}
-            <p>{(mysite.options && mysite.options.length > 0) ? "Here are your options" : "No options"}</p>
-            
-            <h1 className='counter' >Counter : {counter}</h1>
-            <button onClick = {addOne} >+1</button>    
-            <button onClick = {minusOne}>-1</button>    
-
-            <button disabled = {mysite.options.length === 0} onClick={getMyAns}>Check my destiny!</button>
-            <h3>{mysite.options.length}</h3>
-            <form onSubmit = {submitForm}>
-                <input type = "text" name = "option"/>
-            </form>
-            <ul>
+    render(){
+        return(
+            <div>      
+                <button onClick={this.removeAllOptions}>Remove All</button>
+                <ul>
                 {
-                    mysite.options.map((option,index) => <li key={index}>{option}</li>)
+                    this.props.options.map((option,index) => <Option key={index} optionText={option} />)
                 }
-            </ul>
-            <button onClick={resetOptions}>Reset Your Options</button>
-        </div>
-    );
-
-    ReactDOM.render(template2, mainContainer);
-
+                </ul>
+            </div>
+        )
+    }
 }
-render();
-// const obj = {
-//     arr : [1,2,3,4,5,],
-//     num : 3,
-//     multiply() {
-//         return this.arr.map((x) => x*this.num);
-//     }
-// }
 
-// console.log(obj.multiply());
+class Option extends React.Component{
+    render(){
+        return(
+            <li>{this.props.optionText}</li>
+        )
+    }
+}
+
+class AddOption extends React.Component{
+
+    handlerForm(e){
+        e.preventDefault();
+
+        const newOption = e.target.elements.option.value.trim();
+
+        if(newOption){
+            //mysite.lastoption = newOption;
+            //mysite.options.push(newOption);
+            e.target.elements.option.value = ''
+            alert(newOption);
+        }
+
+    }
+
+    render(){
+        return(
+            <form onSubmit={this.handlerForm}>
+                <input type = "text" name = "option"/>
+                <button>Add option</button>
+            </form>
+        )
+    }
+}
+
+
+ReactDOM.render(<App/>,document.getElementById('wrapper'))
