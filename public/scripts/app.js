@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8,83 +8,56 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Counter = function (_React$Component) {
-    _inherits(Counter, _React$Component);
+var ToggleVis = function (_React$Component) {
+    _inherits(ToggleVis, _React$Component);
 
-    function Counter(props) {
-        _classCallCheck(this, Counter);
+    function ToggleVis(params) {
+        _classCallCheck(this, ToggleVis);
 
-        var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ToggleVis.__proto__ || Object.getPrototypeOf(ToggleVis)).call(this, params));
 
-        _this.counter = 0;
-        _this.adder = _this.adder.bind(_this);
-        _this.subst = _this.subst.bind(_this);
-        _this.reset = _this.reset.bind(_this);
+        _this.toggle = _this.toggle.bind(_this);
         _this.state = {
-            count: 0
+            visibilty: false
         };
         return _this;
     }
 
-    _createClass(Counter, [{
-        key: 'adder',
-        value: function adder() {
-            this.setState(function (a) {
+    _createClass(ToggleVis, [{
+        key: "toggle",
+        value: function toggle() {
+            this.setState(function (prevState) {
                 return {
-                    count: a.count + 1
+                    visibilty: !prevState.visibilty
                 };
             });
         }
     }, {
-        key: 'subst',
-        value: function subst() {
-            this.setState(function (a) {
-                return {
-                    count: a.count - 1
-                };
-            });
-        }
-    }, {
-        key: 'reset',
-        value: function reset() {
-            this.setState(function () {
-                return {
-                    count: 0
-                };
-            });
-        }
-    }, {
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'div',
+                "div",
                 null,
                 React.createElement(
-                    'h1',
+                    "h1",
                     null,
-                    'COUNT : ',
-                    this.state.count
+                    "Toggle Visibilty"
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.adder },
-                    '+1'
+                    "button",
+                    { onClick: this.toggle },
+                    this.state.visibilty ? "Hide text" : "Show Text"
                 ),
-                React.createElement(
-                    'button',
-                    { onClick: this.subst },
-                    '-1'
-                ),
-                React.createElement(
-                    'button',
-                    { onClick: this.reset },
-                    'reset'
+                this.state.visibilty && React.createElement(
+                    "p",
+                    null,
+                    "Toggle this"
                 )
             );
         }
     }]);
 
-    return Counter;
+    return ToggleVis;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Counter, null), document.getElementById('wrapper'));
+ReactDOM.render(React.createElement(ToggleVis, null), document.getElementById('wrapper'));
