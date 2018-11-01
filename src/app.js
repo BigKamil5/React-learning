@@ -10,11 +10,7 @@ class App extends React.Component{
     }
 
     deleteOptions(){
-        this.setState(()=>{
-            return{
-                options: []
-            }
-        })
+        this.setState(()=>({options: [] }))
     }
 
     chooseDestiny(){
@@ -25,11 +21,9 @@ class App extends React.Component{
         let newString = option
 
         if(newString){
-            this.setState((prev)=>{
-                return{
-                    options: [...prev.options,newString]
-                }
-            })
+            this.setState((prev)=>({
+                options: [...prev.options,newString] 
+            }))
         }
     }
 
@@ -64,9 +58,14 @@ const Header = (props) => {
     return(
         <div>
             <h1> {props.title} </h1>
-            <h3> {props.subtitle} </h3>
+            {props.subtitle && <h3> {props.subtitle} </h3>}
         </div>
     )
+}
+
+Header.defaultProps = {
+    title: 'Default Title',
+    subtitle: "Default Subtitle"
 }
 
 // class Action extends React.Component{
@@ -159,11 +158,7 @@ class AddOption extends React.Component{
         }
 
         if(newOption){
-            this.setState(()=>{
-                return{
-                    errorMsg: ""
-                }
-            })
+            this.setState(()=>({errorMsg: ""}))
             //mysite.lastoption = newOption;
             //mysite.options.push(newOption);
             e.target.elements.option.value = '';
